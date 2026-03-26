@@ -35,6 +35,10 @@ func getDefault(
 
 	rt, err := backend.Get(ctx, p)
 	if errors.Is(err, internal.ErrRouteNotFound) {
+		if r.Host == "cmp.sc" {
+			http.NotFound(w, r)
+			return
+		}
 		http.Redirect(w, r,
 			fmt.Sprintf("/edit/%s", cleanName(p)),
 			http.StatusTemporaryRedirect)
