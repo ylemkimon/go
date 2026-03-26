@@ -6,7 +6,7 @@ export interface ControlsProps {
 
 export const Controls = ({ name }: ControlsProps) => {
   return (
-    <a href={`/edit/${name}`} className={css.controls}>
+    <a href={`/edit/${encodeURIComponent(name)}`} className={css.controls}>
       <span className="material-symbols-outlined">edit</span>
     </a>
   );

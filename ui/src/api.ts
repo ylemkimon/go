@@ -61,7 +61,7 @@ export class ApiError extends Error {
 
 export async function getRoute(name: string): Promise<Route> {
   const route = await fromResponse(
-    await fetch(`/api/url/${name}`),
+    await fetch(`/api/url/${encodeURIComponent(name)}`),
     (data: RouteResponse) => (data.route ? toRoute(data.route) : null)
   );
   return route ?? { name, url: "" };
@@ -97,7 +97,7 @@ export async function* getAllRoutes(
 
 export async function postRoute(name: string, url: string): Promise<Route> {
   const route = await fromResponse(
-    await fetch(`/api/url/${name}`, {
+    await fetch(`/api/url/${encodeURIComponent(name)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export async function postRoute(name: string, url: string): Promise<Route> {
 
 export async function deleteRoute(name: string): Promise<Route> {
   const route = await fromResponse(
-    await fetch(`/api/url/${name}`, {
+    await fetch(`/api/url/${encodeURIComponent(name)}`, {
       method: "DELETE",
     }),
     () => ({ name, url: "" })

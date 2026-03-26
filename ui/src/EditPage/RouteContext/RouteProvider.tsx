@@ -6,7 +6,12 @@ import { apiErrorToString, Route } from "../../api";
 
 function nameFrom(uri: string): string {
   const parts = uri.substring(1).split("/");
-  return parts[1] ?? "";
+  const raw = parts[1] ?? "";
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
 }
 
 export const RouteProvider = ({ children }: { children: ReactNode }) => {

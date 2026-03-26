@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 	"time"
 
 	"github.com/spf13/viper"
@@ -40,7 +41,7 @@ func getDefault(
 			return
 		}
 		http.Redirect(w, r,
-			fmt.Sprintf("/edit/%s", cleanName(p)),
+			fmt.Sprintf("/edit/%s", url.PathEscape(cleanName(p))),
 			http.StatusTemporaryRedirect)
 		return
 	} else if err != nil {
